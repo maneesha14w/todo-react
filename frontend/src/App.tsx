@@ -1,14 +1,19 @@
 import { useState } from "react"
+
 import "./styles.css"
+import Todo from "./Todo"
 
 function App() {
 	const [newTodo, setNewtodo] = useState("")
-	const [todo, setTodo] = useState("")
+	const [todos, setTodos] = useState<Todo[]>([])
 
 	function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
 		// Prevents the default form submission behavior of refreshing
 		e.preventDefault()
-		console.log(newTodo)
+		setTodos((todos) => {
+			const newTodoObj = new Todo(newTodo, false, crypto.randomUUID())
+			return [...todos, newTodoObj]
+		})
 	}
 
 	return (
@@ -30,13 +35,17 @@ function App() {
 			</form>
 			<h1>Todo List</h1>
 			<ul>
-				<li>
-					<div className="titleAndStatus">
-						<input type="checkbox" name="todo" id="" />
-						<p>Todo</p>
-					</div>
-					<button className="btn btn-danger">Delete</button>
-				</li>
+				{todos.map((todo: Todo) => {
+					return (
+						<li>
+							<div className="titleAndStatus">
+								<input type="checkbox" name="todo" id="" />
+								<p>{todo.title}</p>
+							</div>
+							<button className="btn btn-danger">Delete</button>
+						</li>
+					)
+				})}
 			</ul>
 		</>
 	)
