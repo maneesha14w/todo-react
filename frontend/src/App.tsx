@@ -63,7 +63,9 @@ function App() {
 										name="todo"
 										onChange={(e) => toggleComplete(todo.id, e.target.checked)}
 									/>
-									<p>{todo.title}</p>
+									<p className={todo.isComplete ? "strike" : ""}>
+										{todo.title}
+									</p>
 								</div>
 								<div className="buttons">
 									<button className="btn btn-edit">Edit</button>
