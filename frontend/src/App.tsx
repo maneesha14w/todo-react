@@ -4,7 +4,7 @@ import "./styles.css"
 import Todo from "./Todo"
 
 function App() {
-	const [newTodo, setNewtodo] = useState("")
+	const [newTodo, setNewTodo] = useState("")
 	const [todos, setTodos] = useState<Todo[]>([])
 
 	function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
@@ -14,7 +14,24 @@ function App() {
 			const newTodoObj = new Todo(newTodo, false, crypto.randomUUID())
 			return [...todos, newTodoObj]
 		})
+
+		setNewTodo("")
 	}
+
+	function toggleComplete(id: string, isComplete: boolean): void {
+		setTodos((todos) => {
+			return todos.map((todo) => {
+				if (todo.id === id) {
+					return { ...todo, isComplete }
+				}
+				return todo
+			}) as Todo[]
+		})
+	}
+
+	// function deleteTodo(id: string) {
+	// 	setTodos((todos))
+	// }
 
 	return (
 		<>
@@ -24,7 +41,7 @@ function App() {
 					<input
 						type="text"
 						value={newTodo}
-						onChange={(e) => setNewtodo(e.target.value)}
+						onChange={(e) => setNewTodo(e.target.value)}
 						id="newTodo"
 						autoComplete="off"
 					/>
@@ -37,13 +54,28 @@ function App() {
 			<ul>
 				{todos.map((todo: Todo) => {
 					return (
-						<li>
-							<div className="titleAndStatus">
-								<input type="checkbox" name="todo" id="" />
-								<p>{todo.title}</p>
-							</div>
-							<button className="btn btn-danger">Delete</button>
-						</li>
+						<div key={todo.id}>
+							<li key={todo.id}>
+								<div className="titleAndStatus">
+									<input
+										type="checkbox"
+										checked={todo.isComplete}
+										name="todo"
+										onChange={(e) => toggleComplete(todo.id, e.target.checked)}
+									/>
+									<p>{todo.title}</p>
+								</div>
+								<div className="buttons">
+									<button className="btn btn-edit">Edit</button>
+									<button
+										className="btn btn-danger"
+										// onClick={deleteTodo(todo.id)}
+									>
+										Delete
+									</button>
+								</div>
+							</li>
+						</div>
 					)
 				})}
 			</ul>
