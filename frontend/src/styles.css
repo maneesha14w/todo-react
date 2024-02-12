@@ -22,6 +22,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	width: min(700px, calc(100% - 4rem));
 	margin-inline: auto;
+	font-family: "Manrope", sans-serif;
+	background-color: whitesmoke;
 }
 /*
   5. Improve media defaults
@@ -77,12 +79,16 @@ ul {
 	gap: 2rem;
 }
 
-li {
+.li {
 	text-decoration: none;
 	list-style: none;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	border: 1px solid black;
+	border-radius: 1rem;
+	background-color: bisque;
+	padding: 1rem;
 }
 
 .titleAndStatus {
