@@ -20,7 +20,7 @@
 body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
-	width: min(700px, calc(100% - 4rem));
+	width: min(800px, calc(100% - 4rem));
 	margin-inline: auto;
 	font-family: "Manrope", sans-serif;
 	background-color: whitesmoke;
@@ -73,7 +73,7 @@ h6 {
 	align-items: center;
 }
 ul {
-	margin-top: 1rem;
+	margin-top: 5rem;
 	display: flex;
 	flex-direction: column;
 	gap: 2rem;
@@ -85,7 +85,7 @@ ul {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border: 1px solid black;
+	border: 1px solid hsl(0, 1%, 31%);
 	border-radius: 1rem;
 	background-color: bisque;
 	padding: 1rem;
@@ -99,6 +99,10 @@ ul {
 .buttons {
 	display: flex;
 	gap: 1rem;
+}
+
+button:disabled {
+	opacity: 0.4;
 }
 
 .strike {
@@ -171,4 +175,23 @@ button {
 	padding: 0.5em;
 	font: inherit;
 	line-height: 1;
+}
+
+.empty-list-styles {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10rem;
+	text-align: center;
+	font-size: larger;
+	font-style: italic;
+	font-weight: 700;
+}
+
+.quote {
+	align-self: self-start;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
 }
