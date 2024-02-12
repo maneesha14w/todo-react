@@ -150,7 +150,7 @@ function App() {
 											className="btn btn-edit"
 											onClick={() => editTodo(todo.id, newTodo)}
 										>
-											{editMode ? (
+											{editMode && editId === todo.id ? (
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
 													width="24"
