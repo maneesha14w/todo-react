@@ -4,21 +4,28 @@ import "./styles.css"
 import Todo from "./Todo"
 
 function App() {
+	// new todo text
 	const [newTodo, setNewTodo] = useState("")
+	// array of todo state
 	const [todos, setTodos] = useState<Todo[]>([])
 
+	// STATE Functions
 	function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
 		// Prevents the default form submission behavior of refreshing
 		e.preventDefault()
+		if (newTodo === "") return alert("Todo cannot be blank")
+		// if not blank create new obj and add to todos arr.
 		setTodos((todos) => {
 			const newTodoObj = new Todo(newTodo, false, crypto.randomUUID())
 			return [...todos, newTodoObj]
 		})
-
+		// make text field blank for new entry
 		setNewTodo("")
 	}
 
 	function toggleComplete(id: string, isComplete: boolean): void {
+		//change todos to be a mapped version where if the id is equal to toddledId, isComplete is changed.
+		// TODO optimise with ! operator?
 		setTodos((todos) => {
 			return todos.map((todo) => {
 				if (todo.id === id) {
@@ -32,6 +39,7 @@ function App() {
 	function editTodo(id: string, title: string) {
 		// showModal()
 		// const copyOfTodos = todos.slice()
+		//change todos to be a mapped version where if the id is equal to passed id, title is changed.
 		setTodos((todos) => {
 			return todos.map((todo) => {
 				if (todo.id === id) {
@@ -44,16 +52,13 @@ function App() {
 
 	function deleteTodo(id: string) {
 		// const copyOfTodos = todos.slice()
+		// filter out todos if id is not equal to passed id
 		setTodos((todos) => {
 			return todos.filter((todo) => {
 				todo.id != id
 			})
 		})
 	}
-
-	// function deleteTodo(id: string) {
-	// 	setTodos((todos))
-	// }
 
 	return (
 		<>
