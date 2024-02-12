@@ -29,6 +29,28 @@ function App() {
 		})
 	}
 
+	function editTodo(id: string, title: string) {
+		// showModal()
+		// const copyOfTodos = todos.slice()
+		setTodos((todos) => {
+			return todos.map((todo) => {
+				if (todo.id === id) {
+					return { ...todo, title }
+				}
+				return todo
+			})
+		})
+	}
+
+	function deleteTodo(id: string) {
+		// const copyOfTodos = todos.slice()
+		setTodos((todos) => {
+			return todos.filter((todo) => {
+				todo.id != id
+			})
+		})
+	}
+
 	// function deleteTodo(id: string) {
 	// 	setTodos((todos))
 	// }
@@ -68,8 +90,14 @@ function App() {
 									</p>
 								</div>
 								<div className="buttons">
-									<button className="btn btn-edit">Edit</button>
 									<button
+										className="btn btn-edit"
+										onClick={() => editTodo(todo.id, newTodo)}
+									>
+										Edit
+									</button>
+									<button
+										onClick={() => deleteTodo(todo.id)}
 										className="btn btn-danger"
 										// onClick={deleteTodo(todo.id)}
 									>

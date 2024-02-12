@@ -100,9 +100,10 @@ li {
 }
 
 .btn {
-	background: hsl(200, 100%, 50%, 0.1);
-	border: 1px solid hsl(200, 100%, 50%);
-	color: hsl(200, 100%, 50%);
+	background: hsla(160, 68%, 69%, 0.289);
+	border: 1px solid hsl(152, 49%, 20%);
+	color: hsl(131, 77%, 32%);
+
 	padding: 0.25em 0.5em;
 	border-radius: 0.25em;
 	cursor: pointer;
@@ -111,18 +112,18 @@ li {
 
 .btn:hover,
 .btn:focus-visible {
-	background: hsl(200, 100%, 50%, 0.2);
+	background: hsla(160, 68%, 69%, 0.4);
 }
 
 .btn.btn-edit {
-	background: hsla(160, 68%, 69%, 0.289);
-	border: 1px solid hsl(152, 49%, 20%);
-	color: hsl(131, 77%, 32%);
+	background: hsl(200, 100%, 50%, 0.1);
+	color: hsl(200, 100%, 50%);
+	border: 1px solid hsl(200, 100%, 50%);
 }
 
 .btn.btn-edit:hover,
 .btn.btn-edit:focus-visible {
-	background: hsla(160, 68%, 69%, 0.4);
+	background: hsl(200, 100%, 50%, 0.2);
 }
 
 .btn.btn-danger {
@@ -141,4 +142,27 @@ li {
 	align-items: center;
 	justify-content: center;
 	display: flex;
+}
+
+.modal {
+	position: relative;
+	max-width: 20rem;
+	padding: 2rem;
+	border: 0;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 0.5rem 0.25rem hsl(0 0% 0% / 10%);
+}
+
+.modal-close-btn {
+	font-size: 0.75em;
+	position: absolute;
+	top: 0.25em;
+	right: 0.25em;
+}
+
+input[type="text"],
+button {
+	padding: 0.5em;
+	font: inherit;
+	line-height: 1;
 }
