@@ -2,10 +2,9 @@ import { useState } from "react"
 
 import "./styles.css"
 import Todo from "./Todo"
+import Form from "./components/Form"
 
 function App() {
-	// new todo text
-	const [newTodo, setNewTodo] = useState("")
 	// array of todo state
 	const [todos, setTodos] = useState<Todo[]>([])
 	// editMode State
@@ -14,18 +13,6 @@ function App() {
 	const [editId, setEditId] = useState("")
 
 	// STATE Functions
-	function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
-		// Prevents the default form submission behavior of refreshing
-		e.preventDefault()
-		if (newTodo === "") return alert("Todo cannot be blank")
-		// if not blank create new obj and add to todos arr.
-		setTodos((todos) => {
-			const newTodoObj = new Todo(newTodo, false, crypto.randomUUID())
-			return [...todos, newTodoObj]
-		})
-		// make text field blank for new entry
-		setNewTodo("")
-	}
 
 	function toggleComplete(id: string, isComplete: boolean): void {
 		//change todos to be a mapped version where if the id is equal to toddledId, isComplete is changed.
@@ -56,7 +43,14 @@ function App() {
 				return todo
 			})
 		})
-		setNewTodo("")
+		// setNewTodo("")
+	}
+
+	function saveTodo(title: string) {
+		setTodos((todos) => {
+			const newTodoObj = new Todo(title, false, crypto.randomUUID())
+			return [...todos, newTodoObj]
+		})
 	}
 
 	function deleteTodo(id: string) {
@@ -69,39 +63,7 @@ function App() {
 
 	return (
 		<>
-			<form onSubmit={onSubmitTodo} method="get">
-				<div className="form">
-					<input
-						type="text"
-						placeholder={editMode ? "Edit your todo" : "New Todo"}
-						value={newTodo}
-						onChange={(e) => setNewTodo(e.target.value)}
-						id="newTodo"
-						autoComplete="off"
-					/>
-					<button disabled={editMode} className="btn" type="submit">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							fill="none"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path d="M19 8h-14" />
-							<path d="M5 12h9" />
-							<path d="M11 16h-6" />
-							<path d="M15 16h6" />
-							<path d="M18 13v6" />
-						</svg>
-					</button>
-				</div>
-			</form>
-
+			<Form editMode={editMode} saveTodo={saveTodo}></Form>
 			<ul>
 				{todos.length > 0 ? (
 					todos.map((todo: Todo) => {
