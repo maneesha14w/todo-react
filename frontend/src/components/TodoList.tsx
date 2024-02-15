@@ -1,4 +1,5 @@
 import Todo from "../Todo"
+import { EditModal } from "./EditModal"
 
 interface TodoListProps {
 	todos: Todo[]
@@ -9,6 +10,10 @@ interface TodoListProps {
 	editId: string
 }
 
+function editTodo(id: string) {
+	return <EditModal></EditModal>
+}
+
 const TodoList = ({
 	todos,
 	toggleComplete,
@@ -16,8 +21,6 @@ const TodoList = ({
 	editMode,
 	editId,
 }: TodoListProps) => {
-	function editTodo() {}
-
 	return (
 		<ul>
 			{todos.length > 0 ? (
@@ -63,7 +66,7 @@ const TodoList = ({
 								<div className="buttons">
 									<button
 										className="btn btn-edit"
-										// onClick={() => editTodo(todo.id, newTodo)}
+										onClick={() => editTodo(todo.id)}
 									>
 										{editMode && editId === todo.id ? (
 											<svg
