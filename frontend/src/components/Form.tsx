@@ -1,11 +1,10 @@
 import React, { useState } from "react"
 
 interface FormProps {
-	editMode: boolean
 	saveTodo: (newTodo: string) => void
 }
 
-const Form = ({ editMode, saveTodo }: FormProps) => {
+const Form = ({ saveTodo }: FormProps) => {
 	// new todo text
 	const [newTodo, setNewTodo] = useState("")
 
@@ -24,13 +23,13 @@ const Form = ({ editMode, saveTodo }: FormProps) => {
 			<div className="form">
 				<input
 					type="text"
-					placeholder={editMode ? "Edit your todo" : "New Todo"}
+					placeholder="New Todo"
 					value={newTodo}
 					onChange={(e) => setNewTodo(e.target.value)}
 					id="newTodo"
 					autoComplete="off"
 				/>
-				<button disabled={editMode} className="btn" type="submit">
+				<button className="btn" type="submit">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"

@@ -1,48 +1,21 @@
-import { useState } from "react"
 import Todo from "../Todo"
-import Dialog from "./Dialog"
 
 interface TodoListProps {
 	todos: Todo[]
 	toggleComplete: (id: string, isComplete: boolean) => void
 	editTodo: (id: string, title: string) => void
 	deleteTodo: (id: string) => void
-	editMode: boolean
-	editId: string
 }
 
-const TodoList = ({
-	todos,
-	toggleComplete,
-	deleteTodo,
-	editMode,
-	editId,
-}: TodoListProps) => {
-	const [isOpen, setIsOpen] = useState(false)
-
-	const closeDialog = () => {
-		setIsOpen(false)
-	}
-
-	function callEditModal(id: string) {
-		console.log("btn clcikes")
-		setIsOpen(true)
-	}
-
+const TodoList = ({ todos, toggleComplete, deleteTodo }: TodoListProps) => {
 	return (
 		<ul>
-			<Dialog closeDialog={closeDialog} isOpen={isOpen}></Dialog>
 			{todos.length > 0 ? (
 				todos.map((todo: Todo) => {
 					return (
 						<>
 							<div key={todo.id}>
-								<li
-									className={
-										editMode && editId != todo.id ? " li disabled" : "  li"
-									}
-									key={todo.id}
-								>
+								<li className="li">
 									<div className="titleAndStatus">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -78,46 +51,26 @@ const TodoList = ({
 									<div className="buttons">
 										<button
 											className="btn btn-edit"
-											onClick={() => callEditModal(todo.id)}
+											// onClick={() => }
 										>
-											{editMode && editId === todo.id ? (
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													strokeWidth="1.5"
-													stroke="currentColor"
-													fill="none"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-												>
-													<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-													<path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-													<path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-													<path d="M14 4l0 4l-6 0l0 -4" />
-												</svg>
-											) : (
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													strokeWidth="1.5"
-													stroke="currentColor"
-													fill="none"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-												>
-													<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-													<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-													<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-													<path d="M16 5l3 3" />
-												</svg>
-											)}
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="24"
+												height="24"
+												viewBox="0 0 24 24"
+												strokeWidth="1.5"
+												stroke="currentColor"
+												fill="none"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											>
+												<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+												<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+												<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+												<path d="M16 5l3 3" />
+											</svg>
 										</button>
 										<button
-											disabled={editMode}
 											onClick={() => deleteTodo(todo.id)}
 											className="btn btn-danger"
 										>
