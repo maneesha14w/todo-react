@@ -7,7 +7,12 @@ interface TodoListProps {
 	deleteTodo: (id: string) => void
 }
 
-const TodoList = ({ todos, toggleComplete, deleteTodo }: TodoListProps) => {
+const TodoList = ({
+	todos,
+	toggleComplete,
+	editTodo,
+	deleteTodo,
+}: TodoListProps) => {
 	return (
 		<ul>
 			{todos.length > 0 ? (
@@ -51,7 +56,7 @@ const TodoList = ({ todos, toggleComplete, deleteTodo }: TodoListProps) => {
 									<div className="buttons">
 										<button
 											className="btn btn-edit"
-											// onClick={() => }
+											onClick={() => editTodo(todo.id, todo.title)}
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"

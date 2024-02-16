@@ -1,15 +1,15 @@
 interface DialogProps {
-	isOpen: boolean
-	closeDialog: () => void
+	// isOpen: boolean
+	// closeDialog: () => void
 }
 
-function Dialog({ isOpen, closeDialog }: DialogProps) {
+function Dialog() {
 	return (
 		<>
-			<dialog open={isOpen}>
+			<dialog>
 				<svg
 					className="close"
-					onClick={closeDialog}
+					onClick={() => {}}
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
 					height="24"
@@ -28,7 +28,7 @@ function Dialog({ isOpen, closeDialog }: DialogProps) {
 					<h2>Edit your Todo</h2>
 					<input type="text" />
 				</form>
-				<button onClick={closeDialog}>Close</button>
+				<button onClick={() => {}}>Close</button>
 			</dialog>
 		</>
 	)

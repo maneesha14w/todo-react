@@ -4,6 +4,8 @@ import "./styles.css"
 import Todo from "./Todo"
 import Form from "./components/Form"
 import TodoList from "./components/TodoList"
+import Dialog from "./components/Dialog"
+import DeleteModal from "./components/DeleteModal"
 
 function App() {
 	// array of todo state
@@ -22,20 +24,21 @@ function App() {
 		})
 	}
 
-	function editTodo(id: string, title: string) {
+	function editTodo(id: string, oldTitle: string) {
 		// setEditId(id)
 		// if (editMode && title === "") return alert("Todo cannot be blank")
 		// setEditMode(!editMode)
-
-		setTodos((todos) => {
-			return todos.map((todo) => {
-				if (todo.id === id) {
-					return { ...todo, title }
-				}
-				return todo
+		const title = prompt("What do you wish to change your todo to?", oldTitle)
+		if (title != null && title != "") {
+			setTodos((todos) => {
+				return todos.map((todo) => {
+					if (todo.id === id) {
+						return { ...todo, title }
+					}
+					return todo
+				})
 			})
-		})
-		// setNewTodo("")
+		}
 	}
 
 	function saveTodo(title: string) {
@@ -46,11 +49,13 @@ function App() {
 	}
 
 	function deleteTodo(id: string) {
+		if (confirm("Are you sure you want to delete this?")) {
+			setTodos((todos) => {
+				return todos.filter((todo) => todo.id != id)
+			})
+		}
 		// const copyOfTodos = todos.slice()
 		// filter out todos if id is not equal to passed id
-		setTodos((todos) => {
-			return todos.filter((todo) => todo.id != id)
-		})
 	}
 
 	return (
