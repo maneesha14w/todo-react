@@ -38,6 +38,18 @@ app.get("/allTodos", async (req: Request, res: Response) => {
 });
 
 // get todo
+app.get("/getTodo/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const todo = await pool_module.query(
+      "SELECT * FROM todo WHERE todo_id = $1",
+      [id]
+    );
+    res.json(todo.rows[0]);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
 
 // update todo
 
