@@ -51,7 +51,7 @@ app.get("/getTodo/:id", async (req: Request, res: Response) => {
   }
 });
 
-// update todo
+// update todo title
 app.put("/editTodo/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -61,6 +61,20 @@ app.put("/editTodo/:id", async (req: Request, res: Response) => {
       [todo_title, id]
     );
     res.json(`Todo id ${id} was updated`);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+// toggle isComplete
+app.put("/toggleIsComplete/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updateTodo = await pool_module.query(
+      "UPDATE todo SET is_complete = NOT is_complete WHERE todo_id = $1",
+      [id]
+    );
+    res.json(`Todo id ${id} was complete status was changed`);
   } catch (error) {
     console.error(error.message);
   }
