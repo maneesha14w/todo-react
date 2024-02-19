@@ -52,8 +52,33 @@ app.get("/getTodo/:id", async (req: Request, res: Response) => {
 });
 
 // update todo
+app.put("/editTodo/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { todo_title } = req.body;
+    const updateTodo = await pool_module.query(
+      "UPDATE todo SET todo_title = $1 WHERE todo_id = $2",
+      [todo_title, id]
+    );
+    res.json(`Todo id ${id} was updated`);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
 
 // delete todo
+app.delete("/deleteTodo/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deleteTodo = await pool_module.query(
+      "DELETE FROM todo WHERE todo_id = $1",
+      [id]
+    );
+    res.json(`Todo id ${id} was deleted`);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
 
 // start server
 app.listen(5000, () => {
