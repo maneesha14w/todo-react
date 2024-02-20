@@ -19,8 +19,8 @@ function App() {
 		//change todos to be a mapped version where if the id is equal to toddledId, isComplete is changed.
 		setTodos((todos) => {
 			return todos.map((todo) => {
-				if (todo.id === id) {
-					return { ...todo, isComplete }
+				if (todo.todo_id === id) {
+					return { ...todo, is_complete: isComplete }
 				}
 				return todo
 			}) as Todo[]
@@ -35,8 +35,8 @@ function App() {
 		if (title != null && title != "") {
 			setTodos((todos) => {
 				return todos.map((todo) => {
-					if (todo.id === id) {
-						return { ...todo, title }
+					if (todo.todo_id === id) {
+						return { ...todo, todo_title: title }
 					}
 					return todo
 				})
@@ -54,7 +54,7 @@ function App() {
 	function deleteTodo(id: string) {
 		if (confirm("Are you sure you want to delete this?")) {
 			setTodos((todos) => {
-				return todos.filter((todo) => todo.id != id)
+				return todos.filter((todo) => todo.todo_id != id)
 			})
 		}
 		// const copyOfTodos = todos.slice()

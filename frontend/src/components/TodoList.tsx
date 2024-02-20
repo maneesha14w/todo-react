@@ -1,25 +1,37 @@
+import { useEffect, useState } from "react"
 import Todo from "../Todo"
 
 interface TodoListProps {
-	todos: Todo[]
 	toggleComplete: (id: string, isComplete: boolean) => void
 	editTodo: (id: string, title: string) => void
 	deleteTodo: (id: string) => void
 }
 
-const TodoList = ({
-	todos,
-	toggleComplete,
-	editTodo,
-	deleteTodo,
-}: TodoListProps) => {
+const TodoList = ({ toggleComplete, editTodo, deleteTodo }: TodoListProps) => {
+	async function getTodos() {
+		const response = await fetch("http://localhost:5000/allTodos")
+		const TodoArr = await response.json()
+		// Map over the fetched todos and convert them into Todo objects
+		const formattedTodos = TodoArr.map(
+			(todo: Todo) => new Todo(todo.todo_title, todo.is_complete, todo.todo_id)
+		)
+		// Set the formatted todos to the state
+		setTodos(formattedTodos)
+	}
+
+	const [todos, setTodos] = useState<Todo[]>([])
+
+	useEffect(() => {
+		getTodos()
+	}, [])
+
 	return (
 		<ul>
 			{todos.length > 0 ? (
 				todos.map((todo: Todo) => {
 					return (
 						<>
-							<div key={todo.id}>
+							<div key={todo.todo_id}>
 								<li className="li">
 									<div className="titleAndStatus">
 										<svg
@@ -43,20 +55,20 @@ const TodoList = ({
 										</svg>
 										<input
 											type="checkbox"
-											checked={todo.isComplete}
+											checked={todo.is_complete}
 											name="todo"
 											onChange={(e) =>
-												toggleComplete(todo.id, e.target.checked)
+												toggleComplete(todo.todo_id, e.target.checked)
 											}
 										/>
-										<p className={todo.isComplete ? "strike" : ""}>
-											{todo.title}
+										<p className={todo.is_complete ? "strike" : ""}>
+											{todo.todo_title}
 										</p>
 									</div>
 									<div className="buttons">
 										<button
 											className="btn btn-edit"
-											onClick={() => editTodo(todo.id, todo.title)}
+											onClick={() => editTodo(todo.todo_id, todo.todo_title)}
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +88,7 @@ const TodoList = ({
 											</svg>
 										</button>
 										<button
-											onClick={() => deleteTodo(todo.id)}
+											onClick={() => deleteTodo(todo.todo_id)}
 											className="btn btn-danger"
 										>
 											<svg
