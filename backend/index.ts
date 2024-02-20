@@ -1,6 +1,6 @@
 // requirements
-import { Request, Response } from "express";
-require("dotenv").config();
+require("dotenv").config(); // allows use of .env attributes
+import { Request, Response } from "express"; // types for our req and res
 const express = require("express");
 const app = express();
 const cors = require("cors");
