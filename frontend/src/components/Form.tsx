@@ -7,15 +7,29 @@ interface FormProps {
 const Form = ({ saveTodo }: FormProps) => {
 	// new todo text
 	const [newTodo, setNewTodo] = useState("")
+	const [submitClicked, setsubmitClicked] = useState(false)
 
-	function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
+	async function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
+		setsubmitClicked(true)
 		// Prevents the default form submission behavior of refreshing
 		e.preventDefault()
 		if (newTodo === "") return alert("Todo cannot be blank")
 		// if not blank create new obj and add to todos arr.
 		saveTodo(newTodo)
+		// save to db
+		try {
+			const response = await fetch("http://localhost:5000/todos", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ todo_title: `${newTodo}` }),
+			})
+			console.log(response)
+		} catch (error) {
+			console.error(error.message)
+		}
 		// make text field blank for new entry
 		setNewTodo("")
+		setsubmitClicked(false)
 	}
 
 	return (
@@ -29,7 +43,7 @@ const Form = ({ saveTodo }: FormProps) => {
 					id="newTodo"
 					autoComplete="off"
 				/>
-				<button className="btn" type="submit">
+				<button disabled={submitClicked} className="btn" type="submit">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
