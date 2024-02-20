@@ -1,15 +1,18 @@
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
 import "./styles.css"
 import Todo from "./Todo"
 import Form from "./components/Form"
 import TodoList from "./components/TodoList"
-import Dialog from "./components/Dialog"
-import DeleteModal from "./components/DeleteModal"
 
 function App() {
 	// array of todo state
-	const [todos, setTodos] = useState<Todo[]>([])
+	const [todos, setTodos] = useState<Todo[]>(() => {
+		const storeValue = localStorage.getItem("TODOS")
+		return storeValue === null ? [] : JSON.parse(storeValue)
+	})
+	useEffect(() => {
+		localStorage.setItem("TODOS", JSON.stringify(todos))
+	}, [todos])
 
 	// STATE Functions
 	function toggleComplete(id: string, isComplete: boolean): void {
