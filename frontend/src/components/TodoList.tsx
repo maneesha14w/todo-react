@@ -14,30 +14,44 @@ const TodoList = ({ editTodo }: TodoListProps) => {
 	}, [todos])
 
 	async function getTodos() {
-		const response = await fetch("http://localhost:5000/allTodos")
-		const TodoArr = await response.json()
-		// Map over the fetched todos and convert them into Todo objects
-		const formattedTodos = TodoArr.map(
-			(todo: Todo) => new Todo(todo.todo_title, todo.is_complete, todo.todo_id)
-		)
-		// Set the formatted todos to the state
-		setTodos(formattedTodos)
-	}
-
-	async function deleteTodo(id: number) {
-		await fetch(`http://localhost:5000/deleteTodo/${id}`, {
-			method: "DELETE",
-		})
-		// setTodos((todos) => {
-		// 	return todos.filter((todo) => todo.todo_id != id)
-		// })
+		try {
+			const response = await fetch("http://localhost:5000/allTodos")
+			const TodoArr = await response.json()
+			// Map over the fetched todos and convert them into Todo objects
+			const formattedTodos = TodoArr.map(
+				(todo: Todo) =>
+					new Todo(todo.todo_title, todo.is_complete, todo.todo_id)
+			)
+			// Set the formatted todos to the state
+			setTodos(formattedTodos)
+		} catch (error) {
+			console.error(error.message)
+		}
 	}
 
 	async function toggleComplete(id: number) {
-		const res = await fetch(`http://localhost:5000/toggleIsComplete/${id}`, {
-			method: "POST",
-		})
-		console.log(res)
+		try {
+			const response = await fetch(
+				`http://localhost:5000/toggleIsComplete/${id}`,
+				{
+					method: "PUT",
+					headers: { "Content-Type": "application/json" },
+				}
+			)
+			console.log(response)
+		} catch (error) {
+			console.error(error.message)
+		}
+	}
+
+	async function deleteTodo(id: number) {
+		try {
+			await fetch(`http://localhost:5000/deleteTodo/${id}`, {
+				method: "DELETE",
+			})
+		} catch (error) {
+			console.error(error.message)
+		}
 	}
 
 	return (
@@ -72,7 +86,7 @@ const TodoList = ({ editTodo }: TodoListProps) => {
 											type="checkbox"
 											checked={todo.is_complete}
 											name="todo"
-											onChange={(e) => toggleComplete(todo.todo_id)}
+											onChange={() => toggleComplete(todo.todo_id)}
 										/>
 										<p className={todo.is_complete ? "strike" : ""}>
 											{todo.todo_title}

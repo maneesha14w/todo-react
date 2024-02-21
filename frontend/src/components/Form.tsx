@@ -18,12 +18,11 @@ const Form = ({ saveTodo }: FormProps) => {
 		saveTodo(newTodo)
 		// save to db
 		try {
-			const response = await fetch("http://localhost:5000/todos", {
+			await fetch("http://localhost:5000/todos", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ todo_title: `${newTodo}` }),
 			})
-			console.log(response)
 		} catch (error) {
 			console.error(error.message)
 		}
