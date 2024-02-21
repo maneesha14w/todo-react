@@ -4,10 +4,15 @@ import Todo from "../Todo"
 interface TodoListProps {
 	toggleComplete: (id: string, isComplete: boolean) => void
 	editTodo: (id: string, title: string) => void
-	deleteTodo: (id: string) => void
 }
 
-const TodoList = ({ toggleComplete, editTodo, deleteTodo }: TodoListProps) => {
+const TodoList = ({ editTodo }: TodoListProps) => {
+	const [todos, setTodos] = useState<Todo[]>([])
+
+	useEffect(() => {
+		getTodos()
+	}, [todos])
+
 	async function getTodos() {
 		const response = await fetch("http://localhost:5000/allTodos")
 		const TodoArr = await response.json()
@@ -19,11 +24,21 @@ const TodoList = ({ toggleComplete, editTodo, deleteTodo }: TodoListProps) => {
 		setTodos(formattedTodos)
 	}
 
-	const [todos, setTodos] = useState<Todo[]>([])
+	async function deleteTodo(id: number) {
+		await fetch(`http://localhost:5000/deleteTodo/${id}`, {
+			method: "DELETE",
+		})
+		// setTodos((todos) => {
+		// 	return todos.filter((todo) => todo.todo_id != id)
+		// })
+	}
 
-	useEffect(() => {
-		getTodos()
-	}, [])
+	async function toggleComplete(id: number) {
+		const res = await fetch(`http://localhost:5000/toggleIsComplete/${id}`, {
+			method: "POST",
+		})
+		console.log(res)
+	}
 
 	return (
 		<ul>
@@ -57,9 +72,7 @@ const TodoList = ({ toggleComplete, editTodo, deleteTodo }: TodoListProps) => {
 											type="checkbox"
 											checked={todo.is_complete}
 											name="todo"
-											onChange={(e) =>
-												toggleComplete(todo.todo_id, e.target.checked)
-											}
+											onChange={(e) => toggleComplete(todo.todo_id)}
 										/>
 										<p className={todo.is_complete ? "strike" : ""}>
 											{todo.todo_title}

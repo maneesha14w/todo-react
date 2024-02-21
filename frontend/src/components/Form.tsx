@@ -10,10 +10,10 @@ const Form = ({ saveTodo }: FormProps) => {
 	const [submitClicked, setsubmitClicked] = useState(false)
 
 	async function onSubmitTodo(e: React.FormEvent<HTMLFormElement>) {
-		setsubmitClicked(true)
 		// Prevents the default form submission behavior of refreshing
 		e.preventDefault()
 		if (newTodo === "") return alert("Todo cannot be blank")
+		setsubmitClicked(true)
 		// if not blank create new obj and add to todos arr.
 		saveTodo(newTodo)
 		// save to db

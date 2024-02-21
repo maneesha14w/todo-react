@@ -57,19 +57,12 @@ function App() {
 				return todos.filter((todo) => todo.todo_id != id)
 			})
 		}
-		// const copyOfTodos = todos.slice()
-		// filter out todos if id is not equal to passed id
 	}
 
 	return (
 		<>
 			<Form saveTodo={saveTodo}></Form>
-			<TodoList
-				todos={todos}
-				deleteTodo={deleteTodo}
-				editTodo={editTodo}
-				toggleComplete={toggleComplete}
-			></TodoList>
+			<TodoList editTodo={editTodo} toggleComplete={toggleComplete}></TodoList>
 		</>
 	)
 }
