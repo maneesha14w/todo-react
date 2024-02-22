@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react"
 import Todo from "../Todo"
+import EditButton from "./EditButton"
 
-interface TodoListProps {
-	toggleComplete: (id: string, isComplete: boolean) => void
-	editTodo: (id: string, title: string) => void
-}
-
-const TodoList = ({ editTodo }: TodoListProps) => {
+const TodoList = () => {
 	const [todos, setTodos] = useState<Todo[]>([])
 
 	useEffect(() => {
@@ -31,14 +27,10 @@ const TodoList = ({ editTodo }: TodoListProps) => {
 
 	async function toggleComplete(id: number) {
 		try {
-			const response = await fetch(
-				`http://localhost:5000/toggleIsComplete/${id}`,
-				{
-					method: "PUT",
-					headers: { "Content-Type": "application/json" },
-				}
-			)
-			console.log(response)
+			await fetch(`http://localhost:5000/toggleIsComplete/${id}`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+			})
 		} catch (error) {
 			console.error(error.message)
 		}
@@ -54,8 +46,12 @@ const TodoList = ({ editTodo }: TodoListProps) => {
 		}
 	}
 
+	async function editTodo(id: number) {
+		console.log(id)
+	}
+
 	return (
-		<ul>
+		<ul className="todoUl">
 			{todos.length > 0 ? (
 				todos.map((todo: Todo) => {
 					return (
@@ -93,27 +89,10 @@ const TodoList = ({ editTodo }: TodoListProps) => {
 										</p>
 									</div>
 									<div className="buttons">
-										<button
-											className="btn btn-edit"
-											onClick={() => editTodo(todo.todo_id, todo.todo_title)}
-										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="24"
-												height="24"
-												viewBox="0 0 24 24"
-												strokeWidth="1.5"
-												stroke="currentColor"
-												fill="none"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											>
-												<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-												<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-												<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-												<path d="M16 5l3 3" />
-											</svg>
-										</button>
+										<EditButton
+											editTodo={editTodo}
+											editId={todo.todo_id}
+										></EditButton>
 										<button
 											onClick={() => deleteTodo(todo.todo_id)}
 											className="btn btn-danger"

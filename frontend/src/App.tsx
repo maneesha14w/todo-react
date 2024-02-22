@@ -3,6 +3,7 @@ import "./styles.css"
 import Todo from "./Todo"
 import Form from "./components/Form"
 import TodoList from "./components/TodoList"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
 	// array of todo state
