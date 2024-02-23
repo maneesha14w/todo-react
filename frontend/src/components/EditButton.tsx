@@ -2,9 +2,15 @@ import { useState } from "react"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 
-function Example() {
-	const [show, setShow] = useState(false)
+interface EditButtonProps {
+	todo_title: string
+	editTodo(newTodo_title: string, editId: number): () => void
+	editId: number
+}
 
+function EditButton({ todo_title, editTodo, editId }: EditButtonProps) {
+	const [editText, setEditText] = useState(todo_title)
+	const [show, setShow] = useState(false)
 	const handleClose = () => setShow(false)
 	const handleShow = () => setShow(true)
 
@@ -36,11 +42,38 @@ function Example() {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Modal title</Modal.Title>
+					<Modal.Title>Edit Todo</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					I will not close if you click outside me. Do not even try to press
-					escape key.
+					<form onSubmit={() => {}} method="get">
+						<div className="form">
+							<input
+								type="text"
+								value={editText}
+								onChange={(e) => setEditText(e.target.value)}
+								id="newTodo"
+								autoComplete="off"
+							/>
+							<Button className="btn" type="submit">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									fill="none"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+									<path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+									<path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+									<path d="M14 4l0 4l-6 0l0 -4" />
+								</svg>
+							</Button>
+						</div>
+					</form>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
@@ -53,4 +86,4 @@ function Example() {
 	)
 }
 
-export default Example
+export default EditButton

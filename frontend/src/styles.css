@@ -130,8 +130,3 @@ button {
 .quote {
 	align-self: self-start;
 }
-
-.disabled {
-	pointer-events: none;
-	opacity: 0.5;
-}

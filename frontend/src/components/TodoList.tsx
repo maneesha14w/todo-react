@@ -96,6 +96,7 @@ const TodoList = () => {
 									</div>
 									<div className="buttons">
 										<EditButton
+											todo_title={todo.todo_title}
 											editTodo={editTodo}
 											editId={todo.todo_id}
 										></EditButton>
