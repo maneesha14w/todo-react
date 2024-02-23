@@ -84,7 +84,13 @@ const TodoList = () => {
 											name="todo"
 											onChange={() => toggleComplete(todo.todo_id)}
 										/>
-										<p className={todo.is_complete ? "strike" : ""}>
+										<p
+											className={
+												todo.is_complete
+													? "text-decoration-line-through"
+													: "text-decoration-none"
+											}
+										>
 											{todo.todo_title}
 										</p>
 									</div>
