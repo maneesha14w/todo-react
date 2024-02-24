@@ -48,7 +48,7 @@ const TodoList = () => {
 
 	async function editTodo(id: number, todo_title: string) {
 		try {
-			await fetch(`http://localhost:5000/toggleIsComplete/${id}`, {
+			await fetch(`http://localhost:5000/editTodo/${id}`, {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ todo_title: `${todo_title}` }),
@@ -103,11 +103,11 @@ const TodoList = () => {
 										</p>
 									</div>
 									<div className="buttons">
-										<EditButton
+										{/* <EditButton
 											todo_title={todo.todo_title}
-											editTodo={editTodo}
+											editTodo={editTodo(todo.todo_id, todo.todo_title)}
 											editId={todo.todo_id}
-										></EditButton>
+										></EditButton> */}
 										<button
 											onClick={() => deleteTodo(todo.todo_id)}
 											className="btn btn-danger"
