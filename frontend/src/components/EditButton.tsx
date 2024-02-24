@@ -1,18 +1,22 @@
 import { useState } from "react"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
+import Todo from "../Todo"
 
 interface EditButtonProps {
-	todo_title: string
-	// editTodo(editId: number, newTodo_title: string): () => void
-	editId: number
+	todo: Todo
+	editTodo(editId: number, newTodo_title: string): Promise<void>
 }
 
-function EditButton({ todo_title, editId }: EditButtonProps) {
-	const [editText, setEditText] = useState(todo_title)
+function EditButton({ todo, editTodo }: EditButtonProps) {
+	const [editText, setEditText] = useState(todo.todo_title)
 	const [show, setShow] = useState(false)
 	const handleClose = () => setShow(false)
 	const handleShow = () => setShow(true)
+
+	async function onSavePressed() {
+		await editTodo(todo.todo_id, editText)
+	}
 
 	return (
 		<>
@@ -59,7 +63,7 @@ function EditButton({ todo_title, editId }: EditButtonProps) {
 					</form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button className="btn" type="submit">
+					<Button className="btn" type="submit" onClick={onSavePressed}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
