@@ -103,11 +103,11 @@ const TodoList = () => {
 										</p>
 									</div>
 									<div className="buttons">
-										{/* <EditButton
+										<EditButton
 											todo_title={todo.todo_title}
-											editTodo={editTodo(todo.todo_id, todo.todo_title)}
-											editId={todo.todo_id}
-										></EditButton> */}
+											// editTodo={editTodo(todo.todo_id, todo.todo_title)}
+											// editId={todo.todo_id}
+										></EditButton>
 										<button
 											onClick={() => deleteTodo(todo.todo_id)}
 											className="btn btn-danger"
