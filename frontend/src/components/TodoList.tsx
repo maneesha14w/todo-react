@@ -46,8 +46,16 @@ const TodoList = () => {
 		}
 	}
 
-	async function editTodo(id: number) {
-		console.log(id)
+	async function editTodo(id: number, todo_title: string) {
+		try {
+			await fetch(`http://localhost:5000/toggleIsComplete/${id}`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ todo_title: `${todo_title}` }),
+			})
+		} catch (error) {
+			console.error(error.message)
+		}
 	}
 
 	return (
