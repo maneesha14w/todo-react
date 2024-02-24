@@ -16,6 +16,7 @@ function EditButton({ todo, editTodo }: EditButtonProps) {
 
 	async function onSavePressed() {
 		await editTodo(todo.todo_id, editText)
+		handleClose()
 	}
 
 	return (
