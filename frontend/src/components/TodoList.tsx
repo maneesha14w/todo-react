@@ -11,7 +11,9 @@ const TodoList = () => {
 
 	async function getTodos() {
 		try {
-			const response = await fetch("http://localhost:5000/allTodos")
+			const response = await fetch(
+				"https://todo-react-scge.onrender.com/allTodos"
+			)
 			const TodoArr = await response.json()
 			// Map over the fetched todos and convert them into Todo objects
 			const formattedTodos = TodoArr.map(
@@ -27,10 +29,13 @@ const TodoList = () => {
 
 	async function toggleComplete(id: number) {
 		try {
-			await fetch(`http://localhost:5000/toggleIsComplete/${id}`, {
-				method: "PUT",
-				headers: { "Content-Type": "application/json" },
-			})
+			await fetch(
+				`https://todo-react-scge.onrender.com/toggleIsComplete/${id}`,
+				{
+					method: "PUT",
+					headers: { "Content-Type": "application/json" },
+				}
+			)
 		} catch (error) {
 			console.error(error.message)
 		}
@@ -38,7 +43,7 @@ const TodoList = () => {
 
 	async function deleteTodo(id: number) {
 		try {
-			await fetch(`http://localhost:5000/deleteTodo/${id}`, {
+			await fetch(`https://todo-react-scge.onrender.com/deleteTodo/${id}`, {
 				method: "DELETE",
 			})
 		} catch (error) {
@@ -48,7 +53,7 @@ const TodoList = () => {
 
 	async function editTodo(id: number, todo_title: string) {
 		try {
-			await fetch(`http://localhost:5000/editTodo/${id}`, {
+			await fetch(`https://todo-react-scge.onrender.com/editTodo/${id}`, {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ todo_title: `${todo_title}` }),

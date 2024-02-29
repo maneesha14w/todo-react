@@ -18,7 +18,7 @@ const Form = ({ saveTodo }: FormProps) => {
 		saveTodo(newTodo)
 		// save to db
 		try {
-			await fetch("http://localhost:5000/todos", {
+			await fetch("https://todo-react-scge.onrender.com/todos", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ todo_title: `${newTodo}` }),
